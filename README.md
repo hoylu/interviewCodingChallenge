@@ -15,3 +15,13 @@ numbers and return 'true' if that card has achieved a win.
 A bingo card will be 25 element array. With the string 'FREE' as the center
 element (index 12). Although developers are unscrupulous, they will pass valid
 data to your function.
+
+# Bingo game made with ReactJS
+## Getting started
+
+`npm run dev` launches a server with hot reloading. Navigate to [localhost:3000](http://localhost:3000).
+
+`npm run build` builds the application to `dist`, generating two bundles for differential serving.
+
+`npm run serve` launches a server over the previously build.
+
