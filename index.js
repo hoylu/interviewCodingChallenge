@@ -19,17 +19,51 @@
  * will pass valid data to your function.
  */
 
-function checkForBingo (bingoCard, drawnNumbers) {
-  // this code for debug purposes, you can remove.
-  console.log('Drawn Numbers: ' + JSON.stringify(drawnNumbers));
+function transpose(a) {
+  return Object.keys(a[0]).map(function (c) {
+    return a.map(function (r) { return r[c]; });
+  });
+}
 
-  for (let i=0, len=bingoCard.length; i<len; i++) {
-    let row = Math.floor(i/5);
-    let col = i % 5;
-   //  console.log(`${row},${col}: ${bingoCard[i]}`);
+
+function checkForBingo(bingoCard, drawnNumbers) {
+
+  // calculate matrix demension
+  let matrixDem = 5;
+
+  const matrixArray = [];
+  let transArray = [];
+  while (bingoCard.length) matrixArray.push(bingoCard.splice(0, matrixDem));
+
+  transArray = transpose(matrixArray);
+
+  if (drawnNumbers.length == 4) {
+    drawnNumbers.splice(2, 0, "Free");
+
+
+    // check diagonal
+    let findFlag = true;
+    for (let i = 0; i < 5; i++) {
+      if (drawnNumbers[i] != matrixArray[i][i]) {
+        findFlag = false
+        break;
+      }
+    }
+    if (!findFlag) return true
+    else return false
   }
-
-  return false;
+  // check row && col
+  index = matrixArray.indexOf(drawnNumbers);
+  if (index > -1)
+    findFlag = true;
+  else {
+    index = transArray.indexOf(drawnNumbers);
+  }
+  if (index > -1)
+    findFlag = tru;
+  else
+    findFlag = false;
+  return findFlag;
 }
 
 module.exports = checkForBingo;
@@ -53,11 +87,11 @@ checkForBingo(
 // this should return false
 checkForBingo(
   [
-   8, 29, 35, 54, 65,
-   13, 24, 44, 48, 67,
-   9, 21, 'FREE', 59, 63,
-   7, 19, 34, 53, 61,
-   1, 20, 33, 46, 72
+    8, 29, 35, 54, 65,
+    13, 24, 44, 48, 67,
+    9, 21, 'FREE', 59, 63,
+    7, 19, 34, 53, 61,
+    1, 20, 33, 46, 72
   ],
   [
     1, 33, 53, 65, 29, 75
