@@ -24,7 +24,6 @@ function checkForBingo(bingoCard, drawnNumbers) {
   console.log("Drawn Numbers: " + JSON.stringify(drawnNumbers));
   let selectedCells = [];
   let selectedIndexes = [];
-  console.log(drawnNumbers.length);
   for (let i = 0, len = bingoCard.length; i < len; i++) {
     let row = Math.floor(i / 5);
     let col = i % 5;
@@ -33,9 +32,9 @@ function checkForBingo(bingoCard, drawnNumbers) {
     if (drawnNumbers.includes(bingoCard[i]) || (includeFree && bingoCard[i] == "FREE")) {
       selectedCells.push({ x: row, y: col });
       selectedIndexes.push(i);
-      console.log(`${row},${col}: ${bingoCard[i]}`);
     }
   }
+  // Below code is just for visual purpose. looks good in console
   console.log(selectedCells);
   console.log(selectedIndexes);
 
