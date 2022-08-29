@@ -1,0 +1,5 @@
+{
+  "name": "interviewCodingChallenge",
+  "version": "0.1",
+  "scripts": {"start": "npm run node index.js"}
+}
