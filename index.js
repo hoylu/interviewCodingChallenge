@@ -20,13 +20,76 @@
  */
 
 function checkForBingo (bingoCard, drawnNumbers) {
-  // this code for debug purposes, you can remove.
-  console.log('Drawn Numbers: ' + JSON.stringify(drawnNumbers));
 
-  for (let i=0, len=bingoCard.length; i<len; i++) {
-    let row = Math.floor(i/5);
+  // Create the bingo board
+  const bingoBoard = [[], [], [], [], []];
+
+  for (let i = 0, len = bingoCard.length; i < len; i++) {
+    let row = Math.floor(i / 5);
     let col = i % 5;
-   //  console.log(`${row},${col}: ${bingoCard[i]}`);
+
+    // If the number is one of the drawnNumbers, replace the number with 0
+    if (drawnNumbers.includes(bingoCard[i])) {
+      bingoBoard[row][col] = 0;
+    } else {
+      bingoBoard[row][col] = bingoCard[i];
+    }
+  }
+  // FREE should always be marked as 0
+  bingoBoard[2][2] = 0
+
+  // Check diagonally
+  let diagonalCount = 0;
+  for (let i = 0; i < bingoBoard.length; i++) {
+    if (bingoBoard[i][i] === 0) {
+      diagonalCount++;
+    }
+    if (diagonalCount === 5) {
+      return true
+    }
+  }
+
+  // Check reversed diagonally
+  let reversedDiagonalCount = 0;
+  for (let i = 0, j = 4; i < bingoBoard.length; i++, j--) {
+    if (bingoBoard[i][j] === 0) {
+      reversedDiagonalCount++;
+    }
+    if (reversedDiagonalCount === 5) {
+      return true;
+    }
+  }
+
+  // check each rows
+  let rowsCount = 0;
+  for (let i = 0; i < bingoBoard.length; i++) {
+    for (let j = 0; j < bingoBoard.length; j++) {
+      if (bingoBoard[i][j] === 0) {
+        rowsCount++;
+      } else {
+        rowsCount = 0;
+        break;
+      }
+      if (rowsCount === 5) {
+        return true;
+      }
+    }
+  }
+
+  // check each columns
+  let colsCount = 0;
+  for (let i = 0; i < bingoBoard.length; i++) {
+    for (let j = 0; j < bingoBoard.length; j++) {
+      if (bingoBoard[j][i] === 0) {
+        colsCount++;
+      } else {
+        colsCount = 0;
+        break;
+      }
+      if (colsCount === 5) {
+        return true;
+      }
+    }
   }
 
   return false;
